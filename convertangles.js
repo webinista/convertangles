@@ -1,4 +1,3 @@
-var Convert = function(){};
 var Angles  = function(){};
 
 Angles.prototype.degToRad = function(degree){
@@ -51,6 +50,3 @@ Angles.prototype.radToTurn = function(radians){
 	 var toDegrees = this.radToDeg( radians ); 
 	 return this.degToTurn( toDegrees );
 }
-
-
-Convert.prototype.Angles = new Angles();
