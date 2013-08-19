@@ -1,52 +1,96 @@
 var Angles  = function(){};
 
-Angles.prototype.degToRad = function(degree){
-	return degree * ( Math.PI / 180 );
+Angles.prototype.toRadians = function(input){
+	var unit = input.match(/deg|grad|rad|turn/)[0],
+		num  = input.match(/[.0-9]{1,}/)[0],
+		out;
+	
+	switch( unit ){
+		case 'rad':
+			out = num;
+			break;
+		case 'deg':
+			out = num * ( Math.PI / 180 );
+			break;
+		case 'grad':
+			out = num * ( Math.PI / 200 );
+			break;
+		case 'turn':
+			out = num * ( 2 * Math.PI );
+			break;
+	}
+		
+	return out;
 }
 
-Angles.prototype.degToTurn = function(degrees){
-	return degrees * (1 / 360);
+
+Angles.prototype.toDegrees = function(input){
+	var unit = input.match(/deg|grad|rad|turn/)[0],
+		num  = input.match(/[.0-9]{1,}/)[0],
+		out;
+	
+	switch( unit ){
+		case 'deg':
+			out = num;
+			break;
+		case 'grad':
+			out = num / ( 400 / 360 );
+			break;
+		case 'rad':
+			out = num * ( 180 / Math.PI );
+			break;
+		case 'turn':
+			out = num * 360;
+			break;
+	}
+		
+	return out;
 }
 
-Angles.prototype.degToGrad = function(degree){
-	return degree / ( 360 / 400 );
+
+Angles.prototype.toGradians = function(input){
+	var unit = input.match(/deg|grad|rad|turn/)[0],
+		num  = input.match(/[.0-9]{1,}/)[0],
+		out;
+	
+	switch( unit ){
+		case 'deg':
+			out = num * (10/9);
+			break;
+		case 'grad':
+			out = num;
+			break;
+		case 'rad':
+			out = num * ( 200 / Math.PI );
+			break;
+		case 'turn':
+			out = num * 400;
+			break;
+	}
+
+	return out;
 }
 
-Angles.prototype.gradToDeg = function(gradians){
-	return gradians / ( 400 / 360 );
+Angles.prototype.toTurns = function(input){
+	var unit = input.match(/deg|grad|rad|turn/)[0],
+		num  = input.match(/[.0-9]{1,}/)[0],
+		out;
+	
+	switch( unit ){
+		case 'deg':
+			out = num / 360;
+			break;
+		case 'grad':
+			out = num / 400;
+			break;
+		case 'rad':
+			out = num / (2 * Math.PI);
+			break;
+		case 'turn':
+			out = num;
+			break;
+	}
+
+	return out;
 }
 
-Angles.prototype.gradToRad = function(gradians){
-	 return gradians * ( Math.PI / 200 );
-}
-
-Angles.prototype.gradToTurn = function(gradians){
-	return gradians * ( 1 / 400 );
-}
-
-Angles.prototype.turnToDeg = function(turns){
-	return turns * 360;
-}
-
-Angles.prototype.turnToRad = function(turns){
-	return turns * ( 2 * Math.PI );
-}
-
-Angles.prototype.turnToGrad = function(turns){
-	return turns * 400;
-}
-
-Angles.prototype.radToDeg = function(radians){
-	return radians * ( 180 / Math.PI );
-}
-
-Angles.prototype.radToGrad = function(radians, dontRound){
-	 var rToG = radians * ( 200 / Math.PI ), returnvalue; 	 
-	 (dontRound === true) ? returnvalue = rToG : returnvalue = Math.round( rToG );
-	 return returnvalue;
-}
-
-Angles.prototype.radToTurn = function(radians){
-	 var toDegrees = this.radToDeg( radians ); 
-	 return this.degToTurn( toDegrees );
-}
